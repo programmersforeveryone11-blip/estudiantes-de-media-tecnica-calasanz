@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luizabeth | Programación y Trabajos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="cart-floating" class="cart-floating" onclick="location.href='carrito.html'">
+    <span class="cart-emoji">🛒</span>
+    <div id="cart-dot" class="cart-dot"></div>
+</div>
+
+<script>
+    // Sistema de Carrito de Luizabeth
+    let carrito = JSON.parse(localStorage.getItem('mi_carrito')) || [];
+
+    function actualizarPuntoRojo() {
+        const dot = document.getElementById('cart-dot');
+        // Si hay 4 o más, aparece el punto rojo
+        if (carrito.length >= 4) {
+            dot.style.display = 'block';
+        } else {
+            dot.style.display = 'none';
+        }
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+        if (carrito.length >= 4) {
+            alert("¡Carrito lleno! El límite son 4 servicios para asegurar la calidad ✨");
+            return;
+        }
+        carrito.push({ nombre, precio });
+        localStorage.setItem('mi_carrito', JSON.stringify(carrito));
+        actualizarPuntoRojo();
+        
+        // Animación de rebote al agregar
+        const cart = document.getElementById('cart-floating');
+        cart.style.transform = "scale(1.2) rotate(10deg)";
+        setTimeout(() => { cart.style.transform = "scale(1)"; }, 200);
+    }
+
+    // Convertir todos tus botones en botones de "Agregar"
+    document.querySelectorAll('.btn-precio, .servicio-item').forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            // Evitamos que el link de WhatsApp se abra si es un botón de precio normal
+            if(boton.classList.contains('btn-precio')) e.preventDefault();
+            
+            let nombre = boton.querySelector('h3')?.innerText || boton.querySelector('span')?.innerText;
+            let precio = boton.querySelector('.monto')?.innerText || boton.querySelector('.overlay-precio')?.innerText;
+            
+            agregarAlCarrito(nombre, precio);
+        });
+    });
+
+    // Iniciar el punto rojo al cargar
+    actualizarPuntoRojo();
+</script>
+    <nav class="navbar">
+        <a href="#" class="logo">Luizabeth</a>
+        
+        <button class="menu-hamburguesa" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
+
+        <ul class="nav-links" id="menu">
+            <li><a href="https://wa.me/584XXXXXXXXX" target="_blank">Contacto: +58 4XX XXXXXXX</a></li>
+            <li><a href="#creador">Ir a Biografía</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="saludo">
+                    !!HOLA<br>
+                    <span>ESTUDIANTES</span><br>
+                    DE MEDIA TÉCNICA!!
+                </h1>
+            </div>
+            <div class="hero-img">
+                <img src="autista.jpg" alt="Luizabeth Dev">
+            </div>
+        </div>
+    </header>
+
+    <section class="acordeon-section">
+        <div class="tab-container">
+            <button class="tab-header" onclick="toggleTab()">
+                ¿Quién creó esta web? <span>+</span>
+            </button>
+            <div id="tabContent" class="tab-content">
+                <p>
+                    ¡Hola! Soy <b>Luizabeth</b>, estudiante de media técnica y apasionada por la programación. 
+                    Creé este sitio para demostrar que el código no solo es lógica, sino también arte. 
+                    Mi meta es ayudar a mis compañeros a superar retos académicos ofreciendo soluciones 
+                    tecnológicas creativas y trabajos escolares impecables.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Función para el menú hamburguesa
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+
+        // Función para la pestaña desplegable
+        function toggleTab() {
+            const content = document.getElementById('tabContent');
+            const header = document.querySelector('.tab-header span');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                header.innerText = "+";
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                header.innerText = "-";
+            }
+        }
+    </script>
+<section class="precios-section">
+    <div class="precios-titulo">
+        <h2>Planes y Servicios</h2>
+        <p>Soluciones digitales a tu medida con descuentos especiales para estudiantes</p>
+    </div>
+
+    <div class="precios-container">
+        <div class="precio-card">
+            <div class="descuento-tag">15% OFF</div>
+            <h3>Web Blog</h3>
+            <div class="monto">Desde $XX</div>
+            <ul class="lista-servicios">
+                <li>Diseño Personalizado</li>
+                <li>Panel de Administración</li>
+                <li>Optimización Móvil</li>
+                <li>Sección de Comentarios</li>
+            </ul>
+            <a href="https://wa.me/584XXXXXXXXX" class="btn-precio">Lo quiero</a>
+        </div>
+
+        <div class="precio-card destacado">
+            <div class="descuento-tag">25% OFF</div>
+            <div class="popular-tag">Más Popular</div>
+            <h3>Web E-commerce</h3>
+            <div class="monto">Desde $XX</div>
+            <ul class="lista-servicios">
+                <li>Carrito de Compras</li>
+                <li>Pasarela de Pagos</li>
+                <li>Gestión de Inventario</li>
+                <li>Catálogo Interactivo</li>
+            </ul>
+            <a href="https://wa.me/584XXXXXXXXX" class="btn-precio btn-destacado">Lo quiero</a>
+        </div>
+
+        <div class="precio-card">
+            <div class="descuento-tag">40% OFF</div>
+            <h3>Web Escolar</h3>
+            <div class="monto">Desde $XX</div>
+            <ul class="lista-servicios">
+                <li>Formato de Tareas</li>
+                <li>Presentación Digital</li>
+                <li>Gráficos y Tablas</li>
+                <li>Entrega Rápida</li>
+            </ul>
+            <a href="https://wa.me/584XXXXXXXXX" class="btn-precio">Lo quiero</a>
+        </div>
+    </div>
+</section>
+  <section class="tareas-section">
+    <div class="tareas-intro">
+        <h2>¿Te interesa más contratar un servicio de trabajos escolares?</h2>
+        <p class="descripcion-legible">
+            Sabemos que el ritmo de la Media Técnica puede ser pesado. Si tienes acumuladas exposiciones, 
+            informes de pasantías, investigaciones o ejercicios de lógica que no te dan tiempo de terminar, 
+            estoy aquí para apoyarte. Realizo trabajos con excelente ortografía, diseño profesional y 
+            total puntualidad para que asegures tu nota sin estrés.
+        </p>
+    </div>
+
+    <div class="tabla-escolar-wrapper">
+        <table class="tabla-escolar">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Descripción</th>
+                    <th>Tiempo Entrega</th>
+                    <th>Precio Estudiante</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Investigaciones</td>
+                    <td>PDF con normas APA y bibliografía.</td>
+                    <td>24 - 48 horas</td>
+                    <td class="precio-tag-verde">Desde $X</td>
+                </tr>
+                <tr>
+                    <td>Exposiciones</td>
+                    <td>Diapositivas en Canva o PowerPoint.</td>
+                    <td>24 horas</td>
+                    <td class="precio-tag-naranja">Desde $X</td>
+                </tr>
+                <tr>
+                    <td>Informes Técnicos</td>
+                    <td>Redacción técnica y estructurada.</td>
+                    <td>3 - 5 días</td>
+                    <td class="precio-tag-verde">Desde $X</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+  <div style="text-align: center; padding: 40px;">
+    <a href="trabajos.html" class="btn-galeria">Mira mis trabajos</a>
+</div>
+  <section class="ofrecimientos-section">
+    <div class="ofrecimientos-header">
+        <h2>¿Qué te puedo ofrecer?</h2>
+        <p>Pasa el cursor sobre cada servicio para ver el precio estimado</p>
+    </div>
+
+    <div class="servicios-grid">
+        <div class="servicio-item"><span>Diseño de Páginas Web</span><div class="overlay-precio">Desde $50</div></div>
+        <div class="servicio-item"><span>Landing Pages</span><div class="overlay-precio">Desde $30</div></div>
+        <div class="servicio-item"><span>Blogs Personales</span><div class="overlay-precio">Desde $40</div></div>
+        <div class="servicio-item"><span>Corrección de Código</span><div class="overlay-precio">Desde $10</div></div>
+        <div class="servicio-item"><span>Formularios HTML/CSS</span><div class="overlay-precio">Desde $15</div></div>
+        <div class="servicio-item"><span>Investigaciones Escritas</span><div class="overlay-precio">Desde $5</div></div>
+        <div class="servicio-item"><span>Ensayos y Análisis</span><div class="overlay-precio">Desde $8</div></div>
+        <div class="servicio-item"><span>Diapositivas Animadas</span><div class="overlay-precio">Desde $10</div></div>
+        <div class="servicio-item"><span>Traducciones (Ing-Esp)</span><div class="overlay-precio">Desde $7</div></div>
+        <div class="servicio-item"><span>Logotipos Básicos</span><div class="overlay-precio">Desde $12</div></div>
+        <div class="servicio-item"><span>Edición de Imágenes</span><div class="overlay-precio">Desde $5</div></div>
+        <div class="servicio-item"><span>Banners para Redes</span><div class="overlay-precio">Desde $8</div></div>
+        <div class="servicio-item"><span>Resúmenes de Libros</span><div class="overlay-precio">Desde $6</div></div>
+        <div class="servicio-item"><span>Mapas Conceptuales</span><div class="overlay-precio">Desde $5</div></div>
+        <div class="servicio-item"><span>Ejercicios de Lógica</span><div class="overlay-precio">Desde $10</div></div>
+        <div class="servicio-item"><span>Asesoría en Proyectos</span><div class="overlay-precio">Desde $15/hr</div></div>
+        <div class="servicio-item"><span>Mantenimiento Web</span><div class="overlay-precio">Desde $20</div></div>
+        <div class="servicio-item"><span>Portafolios Digitales</span><div class="overlay-precio">Desde $35</div></div>
+        <div class="servicio-item"><span>Transcripción de Audio</span><div class="overlay-precio">Desde $10</div></div>
+        <div class="servicio-item"><span>Digitalización de Notas</span><div class="overlay-precio">Desde $5</div></div>
+    </div>
+</section>
+  <section class="sucursal-coquette">
+    <div class="sucursal-decor">
+        <span class="corazon-icono">❤️</span>
+        <span class="corazon-icono">❤️</span>
+        <span class="corazon-icono">❤️</span>
+    </div>
+    
+    <div class="sucursal-card">
+        <div class="sucursal-header">
+            <span class="estrellita">★</span>
+            <h2>Sucursal Virtual Luizabeth</h2>
+            <span class="estrellita">★</span>
+        </div>
+        
+        <p class="sucursal-intro">
+            ¡Bienvenido a mi pequeño rincón digital! Aquí atendemos con todo el amor y la 
+            dedicación del mundo. Si buscas algo especial, ¡estás en el lugar correcto!
+        </p>
+        
+        <div class="atencion-box">
+            <h3>Atención Personalizada</h3>
+            <ul>
+                <li>Consultas por WhatsApp: +58 4XX XXXXXXX</li>
+                <li>Horario: Lunes a Sábado, 8am - 6pm</li>
+                <li>Entregas Rápidas y Bonitas</li>
+            </ul>
+        </div>
+        
+        <div class="promos-lindas">
+            <h3>Promos Especiales <span class="destaque">¡LINDAS!</span></h3>
+            <div class="promo-grid">
+                <div class="promo-item">
+                    <span class="promo-icono">🎀</span>
+                    <p>Pack 3 Tareas</p>
+                    <span class="promo-precio">$XX</span>
+                </div>
+                <div class="promo-item destacado-promo">
+                    <span class="promo-icono">🍓</span>
+                    <p>Web + Logo</p>
+                    <span class="promo-precio">$XX</span>
+                </div>
+                <div class="promo-item">
+                    <span class="promo-icono">🍒</span>
+                    <p>Edición de Fotos</p>
+                    <span class="promo-precio">$XX</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sucursal-footer">
+            <p>¡Gracias por visitar! Con amor, Luizabeth.</p>
+        </div>
+    </div>
+</section>
+  <section class="aprender-section">
+    <a href="https://www.freecodecamp.org/espanol/learn/2022/responsive-web-design/" target="_blank" class="titulo-enlace">
+        <h2 class="titulo-oportunidad">
+            Esta puede ser tu oportunidad para aprender a programar webs
+        </h2>
+        <p class="sub-click">Haz clic aquí para empezar el curso gratuito de FreeCodeCamp 🚀</p>
+    </a>
+</section>
+  <section class="creadora-detail">
+    <div class="creadora-container">
+        <div class="creadora-img-col">
+            <img src="˙⊹ ੈ✰┆𝑯𝒊𝒈𝒖𝒓𝒖𝒎𝒂.jpg" alt="Luizabeth - Creadora">
+        </div>
+        <div class="creadora-text-col">
+            <span class="tag-creadora">Dev & Estudiante</span>
+            <h2>Sobre la Creadora</h2>
+            <p>
+                Soy una estudiante de media técnica enfocada en el desarrollo web y la resolución creativa de problemas. 
+                Mi objetivo con esta plataforma es fusionar mi pasión por la programación con la ayuda académica, 
+                brindando a mis compañeros herramientas digitales que faciliten su aprendizaje. 
+                Cada línea de código que escribo está pensada para ser funcional, estética y, sobre todo, útil 
+                para la comunidad estudiantil.
+            </p>
+            <div class="creadora-stats">
+                <div><strong>+10</strong><p>Proyectos</p></div>
+                <div><strong>100%</strong><p>Dedicación</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    // 1. FUNCIONES DE LA INTERFAZ (Menú y Pestaña)
+    function toggleMenu() {
+        document.getElementById('menu').classList.toggle('active');
+    }
+
+    function toggleTab() {
+        const content = document.getElementById('tabContent');
+        const header = document.querySelector('.tab-header span');
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            header.innerText = "+";
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            header.innerText = "-";
+        }
+    }
+
+    // 2. SISTEMA DEL CARRITO
+    // Cargamos el carrito desde la memoria del navegador
+    let carrito = JSON.parse(localStorage.getItem('mi_carrito')) || [];
+
+    function actualizarPuntoRojo() {
+        const dot = document.getElementById('cart-dot');
+        if (dot) {
+            // Si hay 4 o más cosas, aparece el punto rojo
+            dot.style.display = (carrito.length >= 4) ? 'block' : 'none';
+        }
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+        if (carrito.length >= 4) {
+            alert("¡Carrito lleno! El límite son 4 servicios para asegurar calidad 🎀");
+            return;
+        }
+
+        // Guardamos el objeto en la lista
+        carrito.push({ nombre: nombre, precio: precio });
+        localStorage.setItem('mi_carrito', JSON.stringify(carrito));
+
+        actualizarPuntoRojo();
+
+        // Animación visual del carrito flotante
+        const cartBtn = document.getElementById('cart-floating');
+        if (cartBtn) {
+            cartBtn.style.transform = "scale(1.2)";
+            setTimeout(() => { cartBtn.style.transform = "scale(1)"; }, 200);
+        }
+    }
+
+    // 3. ACTIVAR LOS 20 SERVICIOS Y BOTONES
+    document.addEventListener('DOMContentLoaded', () => {
+        // Actualizar punto rojo al cargar la página
+        actualizarPuntoRojo();
+
+        // Hacer que los 20 items de "¿Qué te puedo ofrecer?" funcionen
+        const itemsOfrecimiento = document.querySelectorAll('.servicio-item');
+        itemsOfrecimiento.forEach(item => {
+            item.addEventListener('click', () => {
+                const nombre = item.querySelector('span').innerText;
+                const precio = item.querySelector('.overlay-precio').innerText;
+                agregarAlCarrito(nombre, precio);
+            });
+        });
+
+        // Hacer que las tablas de precios y promos también funcionen
+        // (Busca cualquier botón que diga "Lo quiero")
+        const botonesPrecios = document.querySelectorAll('.btn-precio, .promo-item');
+        botonesPrecios.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                e.preventDefault(); // Evita que se recargue la página
+
+                // Buscamos el nombre y precio dentro de la tarjeta
+                const nombre = boton.parentElement.querySelector('h3')?.innerText ||
+                    boton.querySelector('p')?.innerText || "Servicio";
+                const precio = boton.parentElement.querySelector('.monto')?.innerText ||
+                    boton.querySelector('.promo-precio')?.innerText || "Consultar";
+
+                agregarAlCarrito(nombre, precio);
+            });
+        });
+    });
+</script>
+
+<script src="script.js"></script>
+</body>
+
+
+</html>

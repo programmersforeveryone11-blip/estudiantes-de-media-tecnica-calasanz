@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Trabajos | Luizabeth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <style>
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 50px 8%;
+            margin-top: 100px;
+        }
+        .trabajo-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+        .trabajo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .trabajo-info {
+            padding: 20px;
+        }
+        .trabajo-info h3 { color: #990000; margin-bottom: 10px; }
+        .trabajo-info p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+        .trabajo-precio { 
+            font-weight: 800; 
+            color: #00235a; 
+            background: #f0f4f8; 
+            padding: 5px 10px; 
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Luizabeth</a>
+        <a href="index.html" style="text-decoration:none; color:#00235a; font-weight:600;">← Volver</a>
+    </nav>
+
+    <div class="portfolio-grid">
+        <div class="trabajo-card">
+            <img src="˙⊹ ੈ✰┆𝑯𝒊𝒈𝒖𝒓𝒖𝒎𝒂.jpg" alt="Edición de Personajes">
+            <div class="trabajo-info">
+                <h3>Edición de Avatares</h3>
+                <p>Diseño y personalización de perfiles estéticos para redes sociales.</p>
+                <span class="trabajo-precio">$X.XX</span>
+            </div>
+        </div>
+
+        <div class="trabajo-card">
+            <img src="Inflación.jpg" alt="Diseño de Infografías">
+            <div class="trabajo-info">
+                <h3>Infografías Escolares</h3>
+                <p>Resúmenes visuales para exposiciones y tareas de economía o historia.</p>
+                <span class="trabajo-precio">$X.XX</span>
+            </div>
+        </div>
+
+        <div class="trabajo-card">
+            <img src="Lo que yo quiero ( •̀ ω •́ ).jpg" alt="Diseño Creativo">
+            <div class="trabajo-info">
+                <h3>Posters Digitales</h3>
+                <p>Creación de contenido visual creativo con tipografías personalizadas.</p>
+                <span class="trabajo-precio">$X.XX</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

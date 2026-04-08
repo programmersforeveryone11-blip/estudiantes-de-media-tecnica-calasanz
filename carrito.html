@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito | Luizabeth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-page { padding: 100px 8%; text-align: center; }
+        .cart-list { max-width: 600px; margin: 40px auto; background: white; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .cart-item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; }
+        .cart-item:last-child { border-bottom: none; }
+        .btn-gmail { 
+            display: inline-block; 
+            background: #990000; 
+            color: white; 
+            padding: 15px 30px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            font-weight: 800;
+            margin-top: 20px;
+        }
+        .btn-vaciar { color: #888; cursor: pointer; text-decoration: underline; margin-top: 15px; display: block; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Luizabeth</a>
+        <a href="index.html" style="text-decoration:none; color:#00235a; font-weight:600;">← Seguir comprando</a>
+    </nav>
+
+    <div class="cart-page">
+        <h2>Mi Solicitud de Servicios</h2>
+        <div id="lista-vacia" style="display:none;">Tu carrito está vacío 🎀</div>
+        
+        <div class="cart-list" id="contenedor-items">
+            </div>
+
+        <a href="#" onclick="enviarGmail()" class="btn-gmail">Redactar Solicitud en Gmail</a>
+        <span class="btn-vaciar" onclick="vaciarCarrito()">Vaciar carrito</span>
+    </div>
+
+    <script>
+        let carrito = JSON.parse(localStorage.getItem('mi_carrito')) || [];
+
+        function renderCarrito() {
+            const contenedor = document.getElementById('contenedor-items');
+            const vacioMsg = document.getElementById('lista-vacia');
+            
+            if (carrito.length === 0) {
+                contenedor.style.display = 'none';
+                vacioMsg.style.display = 'block';
+                return;
+            }
+
+            contenedor.innerHTML = '';
+            carrito.forEach((item, index) => {
+                contenedor.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.nombre}</span>
+                        <strong>${item.precio}</strong>
+                    </div>
+                `;
+            });
+        }
+
+        function vaciarCarrito() {
+            localStorage.removeItem('mi_carrito');
+            location.reload();
+        }
+
+        function enviarGmail() {
+            if (carrito.length === 0) {
+                alert("Agrega algo al carrito primero");
+                return;
+            }
+
+            let body = "Hola Luizabeth, me interesa contratar los siguientes servicios:\n\n";
+            carrito.forEach(item => {
+                body += `- ${item.nombre} (${item.precio})\n`;
+            });
+            body += "\nEspero tu respuesta para coordinar los detalles. ¡Gracias!";
+
+            const subject = "Solicitud de Servicio Escolar / Web - Luizabeth";
+            const mailtoUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=sophibarcos@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            window.open(mailtoUrl, '_blank');
+        }
+
+        renderCarrito();
+    </script>
+</body>
+</html>
