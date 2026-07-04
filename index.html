@@ -5,174 +5,1047 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luizabeth | Programación y Trabajos</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #00235a;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #ffffff;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #990000; /* Cherry Sangre */
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .menu-hamburguesa {
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #990000;
+            border-radius: 2px;
+        }
+
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 85px;
+            right: 5%;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            list-style: none;
+        }
+
+        .nav-links.active { 
+            display: block; 
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 15px 20px;
+            color: #00235a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- HERO (Saludo a la izquierda) --- */
+        .hero {
+            margin-top: 120px;
+            padding: 60px 5%;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Alinea todo al inicio (izquierda) */
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left; /* Texto a la izquierda */
+        }
+
+        .saludo {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            line-height: 0.85;
+            color: #00235a;
+        }
+
+        .saludo span {
+            color: #990000;
+        }
+
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 30px;
+            box-shadow: 15px 15px 0px #990000;
+            object-fit: cover;
+        }
+
+        /* --- PESTAÑA DESPLEGABLE --- */
+        .acordeon-section {
+            padding: 40px 5%;
+            margin-bottom: 50px;
+        }
+
+        .tab-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #f0f0f0;
+        }
+
+        .tab-header {
+            width: 100%;
+            padding: 20px;
+            background: #990000;
+            color: white;
+            border: none;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tab-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #fffafa;
+        }
+
+        .tab-content p {
+            padding: 30px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text { 
+                text-align: center; 
+            }
+            .saludo { 
+                margin-bottom: 30px; 
+            }
+        }
+
+        /* --- SECCIÓN DE PRECIOS --- */
+        .precios-section {
+            padding: 80px 5%;
+            background-color: #f8fbff; /* Azul muy clarito de fondo */
+            text-align: center;
+        }
+
+        .precios-titulo h2 {
+            font-size: 2.5rem;
+            color: #00235a;
+            margin-bottom: 10px;
+        }
+
+        .precios-titulo p {
+            color: #555;
+            margin-bottom: 50px;
+        }
+
+        .precios-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .precio-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 25px;
+            width: 320px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 35, 90, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f7;
+        }
+
+        .precio-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 35, 90, 0.1);
+        }
+
+        /* Tarjeta Destacada (E-commerce) */
+        .precio-card.destacado {
+            border: 2px solid #0056b3;
+            transform: scale(1.05);
+        }
+
+        .precio-card.destacado:hover {
+            transform: scale(1.05) translateY(-15px);
+        }
+
+        .descuento-tag {
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            background: #990000; /* Rojo Cherry para el descuento */
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .popular-tag {
+            background: #0056b3;
+            color: white;
+            padding: 3px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .precio-card h3 {
+            font-size: 1.5rem;
+            color: #00235a;
+            margin-bottom: 15px;
+        }
+
+        .monto {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #0056b3; /* Azul profesional */
+            margin-bottom: 25px;
+        }
+
+        .lista-servicios {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .lista-servicios li {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .lista-servicios li::before {
+            content: "✓";
+            color: #0056b3;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn-precio {
+            display: block;
+            background: #00235a;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-precio:hover {
+            background: #0056b3;
+        }
+
+        .btn-destacado {
+            background: #990000; /* Botón rojo para resaltar la e-commerce */
+        }
+
+        .btn-destacado:hover {
+            background: #cc0000;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .precio-card.destacado {
+                transform: scale(1);
+            }
+            .precio-card.destacado:hover {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* --- SECCIÓN TRABAJOS ESCOLARES --- */
+        .tareas-section {
+            padding: 60px 10%;
+            background-color: #ffffff;
+        }
+
+        .tareas-intro {
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+        }
+
+        .tareas-intro h2 {
+            font-size: 2rem;
+            color: #00235a;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .descripcion-legible {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+            text-align: justify; /* Lo hace ver más como un libro o informe profesional */
+        }
+
+        /* --- TABLA HORIZONTAL --- */
+        .tabla-escolar-wrapper {
+            overflow-x: auto; /* Para que en el celular se pueda deslizar de lado */
+            margin-top: 30px;
+        }
+
+        .tabla-escolar {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .tabla-escolar thead {
+            background-color: #ff9a76; /* Naranja Suave */
+            color: white;
+        }
+
+        .tabla-escolar th, .tabla-escolar td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .tabla-escolar tbody tr:hover {
+            background-color: #f9fffb; /* Cambio de color sutil al pasar el mouse */
+        }
+
+        /* Colores de los tags de precio */
+        .precio-tag-verde {
+            color: #2d6a4f; /* Verde oscuro legible */
+            background-color: #d8f3dc; /* Verde suave menta */
+            font-weight: 700;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .precio-tag-naranja {
+            color: #a34b2d; /* Naranja oscuro */
+            background-color: #ffe5d9; /* Naranja muy suave */
+            font-weight: 700;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        /* Ajuste de esquinas para la tabla */
+        .tabla-escolar tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 600px) {
+            .tareas-intro h2 {
+                font-size: 1.5rem;
+            }
+            .descripcion-legible {
+                font-size: 1rem;
+            }
+        }
+
+        .btn-galeria {
+            display: inline-block;
+            padding: 20px 40px;
+            background-color: #990000; /* Rojo Cherry */
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(153, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-galeria:hover {
+            transform: scale(1.1);
+            background-color: #00235a; /* Cambia a azul al pasar el mouse */
+            box-shadow: 0 15px 25px rgba(0, 35, 90, 0.3);
+        }
+
+        /* --- SECCIÓN OFRECIMIENTOS --- */
+        .ofrecimientos-section {
+            padding: 80px 5%;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .ofrecimientos-header h2 {
+            font-size: 2.5rem;
+            color: #00235a;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+        }
+
+        .servicio-item {
+            background-color: #f0f4f8; /* Azul muy pálido */
+            padding: 25px 15px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, background-color 0.2s;
+        }
+
+        .servicio-item span {
+            font-weight: 600;
+            color: #00235a;
+            font-size: 0.95rem;
+        }
+
+        /* El efecto del precio al pasar el cursor */
+        .overlay-precio {
+            position: absolute;
+            top: 100%; /* Escondido abajo */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #990000; /* Cherry Rojo Sangre */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: top 0.3s ease; /* Animación de deslizamiento */
+        }
+
+        .servicio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .servicio-item:hover .overlay-precio {
+            top: 0; /* Sube y cubre el item */
+        }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .servicios-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+            }
+            .servicio-item {
+                padding: 15px 10px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* --- SECCIÓN SUCURSAL COQUETTE --- */
+        .sucursal-coquette {
+            padding: 80px 5%;
+            background-color: #fff0f5; /* Rosa Lavanda muy clarito */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decoración flotante */
+        .sucursal-decor {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            pointer-events: none;
+        }
+
+        .corazon-icono {
+            font-size: 2rem;
+            color: rgba(153, 0, 0, 0.1); /* Cherry muy transparente */
+            animation: flotar 3s ease-in-out infinite alternate;
+        }
+
+        .corazon-icono:nth-child(2) { animation-delay: 1s; }
+        .corazon-icono:nth-child(3) { animation-delay: 2s; }
+
+        .sucursal-card {
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 40px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.2); /* Sombra rosa suave */
+            border: 3px solid #ffb6c1; /* Rosa Claro */
+            position: relative;
+        }
+
+        .sucursal-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sucursal-header h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #990000; /* Cherry Rojo Sangre */
+            font-weight: 700;
+        }
+
+        .estrellita {
+            font-size: 2rem;
+            color: #ff69b4; /* Rosa Fuerte */
+        }
+
+        .sucursal-intro {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 40px;
+            font-style: italic;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .atencion-box {
+            background-color: #fdf2f4; /* Rosa Pastel muy suave */
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px dashed #ffb6c1;
+        }
+
+        .atencion-box h3 {
+            color: #990000;
+            margin-bottom: 15px;
+        }
+
+        .atencion-box ul {
+            list-style: none;
+            color: #555;
+        }
+
+        .atencion-box li {
+            margin-bottom: 10px;
+        }
+
+        .promos-lindas h3 {
+            color: #ff69b4; /* Rosa Fuerte */
+            margin-bottom: 25px;
+        }
+
+        .destaque {
+            font-weight: 900;
+            color: #990000;
+        }
+
+        .promo-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .promo-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            width: 200px;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .promo-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .destacado-promo {
+            border: 2px solid #ff69b4;
+            background-color: #fff9fb;
+        }
+
+        .promo-icono {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .promo-precio {
+            font-weight: 800;
+            color: #990000;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .sucursal-footer {
+            margin-top: 50px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #ff69b4;
+        }
+
+        /* --- SECCIÓN OPORTUNIDAD --- */
+        .aprender-section {
+            padding: 100px 5%;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        .titulo-enlace {
+            text-decoration: none; /* Quita el subrayado azul feo del link */
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .titulo-oportunidad {
+            font-size: clamp(1.8rem, 5vw, 3.5rem); /* Se adapta al tamaño de la pantalla */
+            font-weight: 900;
+            line-height: 1.2;
+            /* Efecto de degradado Cherry a Azul */
+            background: linear-gradient(90deg, #990000, #0056b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .sub-click {
+            color: #666;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Efecto al tocar o pasar el mouse */
+        .titulo-enlace:hover {
+            transform: scale(1.05); /* Se agranda un poquito */
+        }
+
+        .titulo-enlace:hover .titulo-oportunidad {
+            filter: drop-shadow(0px 5px 15px rgba(153, 0, 0, 0.2));
+        }
+
+        @media (max-width: 600px) {
+            .titulo-oportunidad {
+                padding: 0 10px;
+            }
+        }
+
+        /* --- SECCIÓN DETALLE CREADORA --- */
+        .creadora-detail {
+            padding: 80px 8%;
+            background-color: #fcfcfc;
+        }
+
+        .creadora-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+
+        .creadora-img-col {
+            flex: 1;
+        }
+
+        .creadora-img-col img {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+            box-shadow: 10px 10px 0px #990000; /* Detalle en Rojo Cherry */
+            object-fit: cover;
+        }
+
+        .creadora-text-col {
+            flex: 1.2;
+        }
+
+        .tag-creadora {
+            background: #ffe5e5;
+            color: #990000;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .creadora-text-col h2 {
+            font-size: 2.5rem;
+            color: #00235a;
+            margin: 15px 0;
+        }
+
+        .creadora-text-col p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .creadora-stats {
+            display: flex;
+            gap: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .creadora-stats strong {
+            display: block;
+            font-size: 1.5rem;
+            color: #990000;
+        }
+
+        .creadora-stats p {
+            font-size: 0.9rem;
+            color: #888;
+            margin: 0;
+        }
+
+        /* Fallbacks visuales para imágenes rotas */
+        .img-fallback-container {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #00235a 0%, #990000 100%);
+            border-radius: 30px;
+            box-shadow: 15px 15px 0px #990000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .img-fallback-container.creadora {
+            box-shadow: 10px 10px 0px #990000;
+            border-radius: 20px;
+        }
+
+        .img-fallback-container svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            fill: currentColor;
+        }
+
+        .img-fallback-container span {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        /* CARRITO FLOTANTE */
+        .cart-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(153, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 2000;
+            transition: 0.3s;
+            border: 2px solid #990000;
+        }
+
+        .cart-floating:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-emoji {
+            font-size: 30px;
+        }
+
+        .cart-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: none; /* Se activa con JS */
+        }
+
+        /* TOAST NOTIFICATIONS */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .toast-alert {
+            background-color: #ffffff;
+            color: #00235a;
+            padding: 16px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease forwards, fadeOut 0.3s ease 3.7s forwards;
+            pointer-events: auto;
+            border-left: 5px solid #990000;
+        }
+
+        .toast-alert.error {
+            border-left-color: #ff4d4d;
+        }
+
+        .toast-alert.success {
+            border-left-color: #2d6a4f;
+        }
+
+        .toast-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* Animaciones */
+        @keyframes flotar {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+        }
+
+        /* Responsivo para celulares */
+        @media (max-width: 850px) {
+            .creadora-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+            .creadora-stats {
+                justify-content: center;
+            }
+            .creadora-img-col img {
+                box-shadow: 0px 10px 0px #990000;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sucursal-header h2 { font-size: 2.2rem; }
+            .sucursal-card { padding: 30px; }
+            .promo-grid { flex-direction: column; align-items: center; }
+        }
+    </style>
+    
+    <!-- Definición temprana para evitar errores de ReferenceError al cargar las imágenes -->
+    <script>
+        /* ==========================================
+           1. MANEJO DE IMÁGENES ROTAS (FALLBACK)
+           ========================================== */
+        function handleImageError(containerId, title, isCreadora = false) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            // Creamos un fallback hermoso con CSS en vez de mostrar una imagen rota
+            container.innerHTML = `
+                <div class="img-fallback-container ${isCreadora ? 'creadora' : ''}">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span>${title}</span>
+                </div>
+            `;
+        }
+    </script>
 </head>
 <body>
+
+<!-- Contenedor para notificaciones flotantes hermosas -->
+<div id="toast-container" class="toast-container"></div>
+
 <div id="cart-floating" class="cart-floating" onclick="location.href='carrito.html'">
     <span class="cart-emoji">🛒</span>
     <div id="cart-dot" class="cart-dot"></div>
 </div>
 
-<script>
-    // Sistema de Carrito de Luizabeth
-    let carrito = JSON.parse(localStorage.getItem('mi_carrito')) || [];
+<nav class="navbar">
+    <a href="#" class="logo">Luizabeth</a>
+    
+    <button class="menu-hamburguesa" onclick="toggleMenu()" aria-label="Abrir menú">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
 
-    function actualizarPuntoRojo() {
-        const dot = document.getElementById('cart-dot');
-        // Si hay 4 o más, aparece el punto rojo
-        if (carrito.length >= 4) {
-            dot.style.display = 'block';
-        } else {
-            dot.style.display = 'none';
-        }
-    }
+    <ul class="nav-links" id="menu">
+        <li><a href="https://wa.me/5804228028774" target="_blank">Contacto: +58 04228028774</a></li>
+        <li><a href="#creador">Ir a Biografía</a></li>
+    </ul>
+</nav>
 
-    function agregarAlCarrito(nombre, precio) {
-        if (carrito.length >= 4) {
-            alert("¡Carrito lleno! El límite son 4 servicios para asegurar la calidad ✨");
-            return;
-        }
-        carrito.push({ nombre, precio });
-        localStorage.setItem('mi_carrito', JSON.stringify(carrito));
-        actualizarPuntoRojo();
-        
-        // Animación de rebote al agregar
-        const cart = document.getElementById('cart-floating');
-        cart.style.transform = "scale(1.2) rotate(10deg)";
-        setTimeout(() => { cart.style.transform = "scale(1)"; }, 200);
-    }
-
-    // Convertir todos tus botones en botones de "Agregar"
-    document.querySelectorAll('.btn-precio, .servicio-item').forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            // Evitamos que el link de WhatsApp se abra si es un botón de precio normal
-            if(boton.classList.contains('btn-precio')) e.preventDefault();
-            
-            let nombre = boton.querySelector('h3')?.innerText || boton.querySelector('span')?.innerText;
-            let precio = boton.querySelector('.monto')?.innerText || boton.querySelector('.overlay-precio')?.innerText;
-            
-            agregarAlCarrito(nombre, precio);
-        });
-    });
-
-    // Iniciar el punto rojo al cargar
-    actualizarPuntoRojo();
-</script>
-    <nav class="navbar">
-        <a href="#" class="logo">Luizabeth</a>
-        
-        <button class="menu-hamburguesa" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </button>
-
-        <ul class="nav-links" id="menu">
-            <li><a href="https://wa.me/5804228028774" target="_blank">Contacto: +58 04228028774</a></li>
-            <li><a href="#creador">Ir a Biografía</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="saludo">
-                    !!HOLA<br>
-                    <span>ESTUDIANTES</span><br>
-                    DE MEDIA TÉCNICA!!
-                </h1>
-            </div>
-            <div class="hero-img">
-                <img src="autista.jpg" alt="Luizabeth Dev">
-            </div>
+<header class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="saludo">
+                !!HOLA<br>
+                <span>ESTUDIANTES</span><br>
+                DE MEDIA TÉCNICA!!
+            </h1>
         </div>
-    </header>
-
-    <section class="acordeon-section">
-        <div class="tab-container">
-            <button class="tab-header" onclick="toggleTab()">
-                ¿Quién creó esta web? <span>+</span>
-            </button>
-            <div id="tabContent" class="tab-content">
-                <p>
-                    ¡Hola! Soy <b>Luizabeth</b>, estudiante de media técnica y apasionada por la programación. 
-                    Creé este sitio para demostrar que el código no solo es lógica, sino también arte. 
-                    Mi meta es ayudar a mis compañeros a superar retos académicos ofreciendo soluciones 
-                    tecnológicas creativas y trabajos escolares impecables.
-                </p>
-            </div>
+        <div class="hero-img" id="hero-img-container">
+            <img src="autista.jpg" alt="Luizabeth Dev" id="hero-img-pic" onerror="handleImageError('hero-img-container', 'Luizabeth Dev')">
         </div>
-    </section>
-
-    <script>
-        // Función para el menú hamburguesa
-        function toggleMenu() {
-            document.getElementById('menu').classList.toggle('active');
-        }
-
-        // Función para la pestaña desplegable
-        function toggleTab() {
-            const content = document.getElementById('tabContent');
-            const header = document.querySelector('.tab-header span');
-            
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                header.innerText = "+";
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                header.innerText = "-";
-            }
-        }
-    </script>
-<section class="precios-section">
-    <div class="precios-titulo">
-        <h2>Planes y Servicios</h2>
-        <p>Soluciones digitales a tu medida con descuentos especiales para estudiantes</p>
     </div>
+</header>
 
-    <div class="precios-container">
-        <div class="precio-card">
-            <div class="descuento-tag">15% OFF</div>
-            <h3>Web Blog</h3>
-            <div class="monto">Desde $10</div>
-            <ul class="lista-servicios">
-                <li>Diseño Personalizado</li>
-                <li>Panel de Administración</li>
-                <li>Optimización Móvil</li>
-                <li>Sección de Comentarios</li>
-            </ul>
-            <a href="https://wa.me/5804228028774" class="btn-precio">Lo quiero</a>
-        </div>
-
-        <div class="precio-card destacado">
-            <div class="descuento-tag">25% OFF</div>
-            <div class="popular-tag">Más Popular</div>
-            <h3>Web E-commerce</h3>
-            <div class="monto">Desde $20</div>
-            <ul class="lista-servicios">
-                <li>Carrito de Compras</li>
-                <li>Pasarela de Pagos</li>
-                <li>Gestión de Inventario</li>
-                <li>Catálogo Interactivo</li>
-            </ul>
-            <a href="https://wa.me/5804228028774" class="btn-precio btn-destacado">Lo quiero</a>
-        </div>
-
-        <div class="precio-card">
-            <div class="descuento-tag">40% OFF</div>
-            <h3>Web Escolar</h3>
-            <div class="monto">Desde $5</div>
-            <ul class="lista-servicios">
-                <li>Formato de Tareas</li>
-                <li>Presentación Digital</li>
-                <li>Gráficos y Tablas</li>
-                <li>Entrega Rápida</li>
-            </ul>
-            <a href="https://wa.me/5804228028774" class="btn-precio">Lo quiero</a>
+<section class="acordeon-section">
+    <div class="tab-container">
+        <button class="tab-header" onclick="toggleTab()">
+            ¿Quién creó esta web? <span>+</span>
+        </button>
+        <div id="tabContent" class="tab-content">
+            <p>
+                ¡Hola! Soy <b>Luizabeth</b>, estudiante de media técnica y apasionada por la programación. 
+                Creé este sitio para demostrar que el código no solo es lógica, sino también arte. 
+                Mi meta es ayudar a mis compañeros a superar retos académicos ofreciendo soluciones 
+                tecnológicas creativas y trabajos escolares impecables.
+            </p>
         </div>
     </div>
 </section>
-  <section class="tareas-section">
+
+<!-- [Sección Reubicada: ¿Qué te puedo ofrecer? - Ahora con tus servicios actualizados] -->
+<section class="ofrecimientos-section">
+    <div class="ofrecimientos-header">
+        <h2>¿Qué te puedo ofrecer?</h2>
+        <p>Pasa el cursor sobre cada servicio para ver el precio estimado y haz clic para agregarlo al carrito</p>
+    </div>
+
+    <div class="servicios-grid">
+        <div class="servicio-item"><span>Láminas</span><div class="overlay-precio">Desde $4</div></div>
+        <div class="servicio-item"><span>Trípticos</span><div class="overlay-precio">Desde $2</div></div>
+        <div class="servicio-item"><span>Maquetas</span><div class="overlay-precio">Desde $10</div></div>
+        <div class="servicio-item"><span>Diapositivas</span><div class="overlay-precio">Desde $2</div></div>
+        <div class="servicio-item"><span>Informes</span><div class="overlay-precio">Desde $2</div></div>
+        <div class="servicio-item"><span>Lapbooks</span><div class="overlay-precio">Desde $4</div></div>
+        <div class="servicio-item"><span>Blog Web</span><div class="overlay-precio">Desde $10</div></div>
+    </div>
+</section>
+
+<section class="tareas-section">
     <div class="tareas-intro">
         <h2>¿Te interesa más contratar un servicio de trabajos escolares?</h2>
         <p class="descripcion-legible">
@@ -194,58 +1067,84 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr class="fila-tarea" style="cursor: pointer;">
                     <td>Investigaciones</td>
                     <td>PDF con normas APA y bibliografía.</td>
                     <td>24 - 48 horas</td>
-                    <td class="precio-tag-verde">Desde $2</td>
+                    <td><div class="precio-tag-verde">Desde $2</div></td>
                 </tr>
-                <tr>
+                <tr class="fila-tarea" style="cursor: pointer;">
                     <td>Exposiciones</td>
                     <td>Diapositivas en Canva o PowerPoint.</td>
                     <td>24 horas</td>
-                    <td class="precio-tag-naranja">Desde $3</td>
+                    <td><div class="precio-tag-naranja">Desde $3</div></td>
                 </tr>
-                <tr>
+                <tr class="fila-tarea" style="cursor: pointer;">
                     <td>Informes Técnicos</td>
                     <td>Redacción técnica y estructurada.</td>
                     <td>3 - 5 días</td>
-                    <td class="precio-tag-verde">Desde $3</td>
+                    <td><div class="precio-tag-verde">Desde $3</div></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </section>
-  <div style="text-align: center; padding: 40px;">
+
+<div style="text-align: center; padding: 40px;">
     <a href="trabajos.html" class="btn-galeria">Mira mis trabajos</a>
 </div>
-  <section class="ofrecimientos-section">
-    <div class="ofrecimientos-header">
-        <h2>¿Qué te puedo ofrecer?</h2>
-        <p>Pasa el cursor sobre cada servicio para ver el precio estimado</p>
+
+<!-- [Sección Reubicada: Planes y Servicios] -->
+<section class="precios-section">
+    <div class="precios-titulo">
+        <h2>Planes y Servicios</h2>
+        <p>Soluciones digitales a tu medida con descuentos especiales para estudiantes</p>
     </div>
 
-    <div class="servicios-grid">
-        <div class="servicio-item"><span>Diseño de Páginas Web</span><div class="overlay-precio">Desde $50</div></div>
-        <div class="servicio-item"><span>Landing Pages</span><div class="overlay-precio">Desde $30</div></div>
-        <div class="servicio-item"><span>Blogs Personales</span><div class="overlay-precio">Desde $10</div></div>
-        <div class="servicio-item"><span>Corrección de Código</span><div class="overlay-precio">Desde $20</div></div>
-        <div class="servicio-item"><span>Formularios HTML/CSS</span><div class="overlay-precio">Desde $15</div></div>
-        <div class="servicio-item"><span>Investigaciones Escritas</span><div class="overlay-precio">Desde $5</div></div>
-        <div class="servicio-item"><span>Ensayos y Análisis</span><div class="overlay-precio">Desde $8</div></div>
-        <div class="servicio-item"><span>Diapositivas Animadas</span><div class="overlay-precio">Desde $3</div></div>
-        <div class="servicio-item"><span>Traducciones (Ing-Esp)</span><div class="overlay-precio">Desde $7</div></div>
-        <div class="servicio-item"><span>Resúmenes de Libros</span><div class="overlay-precio">Desde $6</div></div>
-        <div class="servicio-item"><span>Mapas Conceptuales</span><div class="overlay-precio">Desde $4</div></div>
-        <div class="servicio-item"><span>Ejercicios de Lógica</span><div class="overlay-precio">Desde $10</div></div>
-        <div class="servicio-item"><span>Asesoría en Proyectos</span><div class="overlay-precio">Desde $2/hr</div></div>
-        <div class="servicio-item"><span>Mantenimiento Web</span><div class="overlay-precio">Desde $20</div></div>
-        <div class="servicio-item"><span>Portafolios Digitales</span><div class="overlay-precio">Desde $35</div></div>
-        <div class="servicio-item"><span>Transcripción de Audio</span><div class="overlay-precio">Desde $10</div></div>
-        <div class="servicio-item"><span>Digitalización de Notas</span><div class="overlay-precio">Desde $5</div></div>
+    <div class="precios-container">
+        <div class="precio-card">
+            <div class="descuento-tag">15% OFF</div>
+            <h3>Web Blog</h3>
+            <div class="monto">Desde $10</div>
+            <ul class="lista-servicios">
+                <li>Diseño Personalizado</li>
+                <li>Panel de Administración</li>
+                <li>Optimización Móvil</li>
+                <li>Sección de Comentarios</li>
+            </ul>
+            <a href="#" class="btn-precio">Lo quiero</a>
+        </div>
+
+        <div class="precio-card destacado">
+            <div class="descuento-tag">25% OFF</div>
+            <div class="popular-tag">Más Popular</div>
+            <h3>Web E-commerce</h3>
+            <div class="monto">Desde $20</div>
+            <ul class="lista-servicios">
+                <li>Carrito de Compras</li>
+                <li>Pasarela de Pagos</li>
+                <li>Gestión de Inventario</li>
+                <li>Catálogo Interactivo</li>
+            </ul>
+            <a href="#" class="btn-precio btn-destacado">Lo quiero</a>
+        </div>
+
+        <div class="precio-card">
+            <div class="descuento-tag">40% OFF</div>
+            <h3>Web Escolar</h3>
+            <div class="monto">Desde $5</div>
+            <ul class="lista-servicios">
+                <li>Formato de Tareas</li>
+                <li>Presentación Digital</li>
+                <li>Gráficos y Tablas</li>
+                <li>Entrega Rápida</li>
+            </ul>
+            <a href="#" class="btn-precio">Lo quiero</a>
+        </div>
     </div>
 </section>
-  <section class="sucursal-coquette">
+
+<section class="sucursal-coquette">
     <div class="sucursal-decor">
         <span class="corazon-icono">❤️</span>
         <span class="corazon-icono">❤️</span>
@@ -299,7 +1198,8 @@
         </div>
     </div>
 </section>
-  <section class="aprender-section">
+
+<section class="aprender-section">
     <a href="https://www.freecodecamp.org/espanol/learn/2022/responsive-web-design/" target="_blank" class="titulo-enlace">
         <h2 class="titulo-oportunidad">
             Esta puede ser tu oportunidad para aprender a programar webs
@@ -307,10 +1207,11 @@
         <p class="sub-click">Haz clic aquí para empezar el curso gratuito de FreeCodeCamp 🚀</p>
     </a>
 </section>
-  <section class="creadora-detail">
+
+<section class="creadora-detail" id="creador">
     <div class="creadora-container">
-        <div class="creadora-img-col">
-            <img src="★ 2.jpg" alt="Luizabeth - Creadora">
+        <div class="creadora-img-col" id="creadora-img-container">
+            <img src="★ 2.jpg" alt="Luizabeth - Creadora" id="creadora-img-pic" onerror="handleImageError('creadora-img-container', 'Luizabeth - Creadora', true)">
         </div>
         <div class="creadora-text-col">
             <span class="tag-creadora">Dev & Estudiante</span>
@@ -319,7 +1220,7 @@
                 Soy una estudiante de media técnica enfocada en el desarrollo web y la resolución creativa de problemas. 
                 Mi objetivo con esta plataforma es fusionar mi pasión por la programación con la ayuda académica, 
                 brindando a mis compañeros herramientas digitales que faciliten su aprendizaje. 
-                Cada línea de código que escribo está pensada para ser funcional, estética y, sobre todo, útil 
+                Cada línea de código que escribo está pensada para ser functional, estética y, sobre todo, útil 
                 para la comunidad estudiantil.
             </p>
             <div class="creadora-stats">
@@ -329,8 +1230,11 @@
         </div>
     </div>
 </section>
+
 <script>
-    // 1. FUNCIONES DE LA INTERFAZ (Menú y Pestaña)
+    /* ==========================================
+       2. INTERFAZ (Menú y Acordeón)
+       ========================================== */
     function toggleMenu() {
         document.getElementById('menu').classList.toggle('active');
     }
@@ -347,8 +1251,36 @@
         }
     }
 
-    // 2. SISTEMA DEL CARRITO
-    // Cargamos el carrito desde la memoria del navegador
+    /* ==========================================
+       3. NOTIFICACIONES PERSONALIZADAS (TOAST)
+       ========================================== */
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast-alert ${type}`;
+
+        let icon = '✨';
+        if (type === 'error') icon = '🎀';
+        if (type === 'success') icon = '💖';
+
+        toast.innerHTML = `
+            <span class="toast-icon">${icon}</span>
+            <div class="toast-text">${message}</div>
+        `;
+
+        container.appendChild(toast);
+
+        // Remover automáticamente el elemento del DOM al finalizar la animación de salida
+        setTimeout(() => {
+            toast.remove();
+        }, 4000);
+    }
+
+    /* ==========================================
+       4. SISTEMA DEL CARRITO (Lógica Integrada)
+       ========================================== */
     let carrito = JSON.parse(localStorage.getItem('mi_carrito')) || [];
 
     function actualizarPuntoRojo() {
@@ -361,60 +1293,78 @@
 
     function agregarAlCarrito(nombre, precio) {
         if (carrito.length >= 4) {
-            alert("¡Carrito lleno! El límite son 4 servicios para asegurar calidad 🎀");
+            showToast("¡Carrito lleno! El límite son 4 servicios para asegurar calidad 🎀", "error");
             return;
         }
 
-        // Guardamos el objeto en la lista
         carrito.push({ nombre: nombre, precio: precio });
         localStorage.setItem('mi_carrito', JSON.stringify(carrito));
 
         actualizarPuntoRojo();
+        showToast(`¡${nombre} (${precio}) agregado al carrito con éxito!`, "success");
 
         // Animación visual del carrito flotante
         const cartBtn = document.getElementById('cart-floating');
         if (cartBtn) {
-            cartBtn.style.transform = "scale(1.2)";
-            setTimeout(() => { cartBtn.style.transform = "scale(1)"; }, 200);
+            cartBtn.style.transform = "scale(1.2) rotate(10deg)";
+            setTimeout(() => { cartBtn.style.transform = "scale(1)"; }, 250);
         }
     }
 
-    // 3. ACTIVAR LOS 20 SERVICIOS Y BOTONES
+    /* ==========================================
+       5. ASIGNACIÓN DE EVENTOS (DOM Ready)
+       ========================================== */
     document.addEventListener('DOMContentLoaded', () => {
-        // Actualizar punto rojo al cargar la página
+        // Inicializar punto rojo
         actualizarPuntoRojo();
 
-        // Hacer que los 20 items de "¿Qué te puedo ofrecer?" funcionen
+        // A. Items de "¿Qué te puedo ofrecer?" (Se adapta automáticamente a la nueva lista de 7 items)
         const itemsOfrecimiento = document.querySelectorAll('.servicio-item');
         itemsOfrecimiento.forEach(item => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
                 const nombre = item.querySelector('span').innerText;
                 const precio = item.querySelector('.overlay-precio').innerText;
+                agregarAlCarrito(nombre, precio);
+                
+                // Efecto táctil/click
+                item.style.backgroundColor = "#e2e8f0";
+                setTimeout(() => { item.style.backgroundColor = "#f0f4f8"; }, 100);
+            });
+        });
+
+        // B. Tarjetas de Planes/Precios
+        const botonesPrecios = document.querySelectorAll('.precio-card .btn-precio');
+        botonesPrecios.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                e.preventDefault(); // Detener enlace por defecto
+                const card = boton.closest('.precio-card');
+                const nombre = card.querySelector('h3')?.innerText || "Plan Digital";
+                const precio = card.querySelector('.monto')?.innerText || "Consultar";
                 agregarAlCarrito(nombre, precio);
             });
         });
 
-        // Hacer que las tablas de precios y promos también funcionen
-        // (Busca cualquier botón que diga "Lo quiero")
-        const botonesPrecios = document.querySelectorAll('.btn-precio, .promo-item');
-        botonesPrecios.forEach(boton => {
-            boton.addEventListener('click', (e) => {
-                e.preventDefault(); // Evita que se recargue la página
+        // C. Fila de la Tabla de Tareas Escolares
+        const filasTareas = document.querySelectorAll('.fila-tarea');
+        filasTareas.forEach(fila => {
+            fila.addEventListener('click', () => {
+                const celdas = fila.getElementsByTagName('td');
+                const nombre = "Servicio: " + celdas[0].innerText;
+                const precio = celdas[3].innerText;
+                agregarAlCarrito(nombre, precio);
+            });
+        });
 
-                // Buscamos el nombre y precio dentro de la tarjeta
-                const nombre = boton.parentElement.querySelector('h3')?.innerText ||
-                    boton.querySelector('p')?.innerText || "Servicio";
-                const precio = boton.parentElement.querySelector('.monto')?.innerText ||
-                    boton.querySelector('.promo-precio')?.innerText || "Consultar";
-
+        // D. Promos especiales de la sucursal Coquette
+        const promosCoquette = document.querySelectorAll('.promo-item');
+        promosCoquette.forEach(promo => {
+            promo.addEventListener('click', () => {
+                const nombre = "Promo: " + promo.querySelector('p').innerText;
+                const precio = promo.querySelector('.promo-precio').innerText;
                 agregarAlCarrito(nombre, precio);
             });
         });
     });
 </script>
-
-<script src="script.js"></script>
 </body>
-
-
 </html>
